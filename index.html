@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collegium Civitas - Przyszłość Zaczyna Się Tutaj</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'civitas-blue': '#22284F',  // Основний колір (Navy)
+                        'civitas-dark': '#151830',  // Темніший відтінок для футера
+                        'civitas-gold': '#C6A84B',  // Золотий акцент (трохи спокійніший)
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Ефект скла для навігації */
+        .glass-nav {
+            background: #22284F;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+        /* Клас для інверсії кольору логотипа на темному фоні (робить його білим) */
+        .logo-white-filter {
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-700 antialiased bg-gray-50 flex flex-col min-h-screen">
+
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-24 items-center">
+                <a href="#" class="flex-shrink-0 flex items-center cursor-pointer">
+                    <img src="https://www.civitas.edu.pl/wp-content/uploads/2025/04/logo-uc-cc-310x65-pl.gif" alt="Collegium Civitas Logo" class="h-12 md:h-14 w-auto">
+                </a>
+
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#" class="text-white hover:text-civitas-gold font-medium transition relative group">
+                        O Uczelni
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-civitas-blue transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#kierunki" class="text-white hover:text-civitas-gold font-medium transition relative group">
+                        Kierunki
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-civitas-blue transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#studenci" class="text-white hover:text-civitas-gold font-medium transition relative group">
+                        Dla Studenta
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-civitas-blue transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#aktualnosci" class="text-white hover:text-civitas-gold font-medium transition relative group">
+                        Aktualności
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-civitas-blue transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#" class="bg-blue-900 text-white px-6 py-3 rounded-md font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-900/20 transform hover:-translate-y-0.5">
+                        Rekrutacja
+                    </a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-civitas-blue focus:outline-none p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full">
+            <div class="px-4 pt-4 pb-6 space-y-2">
+                <a href="#" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-civitas-blue">O Uczelni</a>
+                <a href="#kierunki" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-civitas-blue">Kierunki</a>
+                <a href="#studenci" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-civitas-blue">Dla Studenta</a>
+                <a href="#aktualnosci" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-civitas-blue">Aktualności</a>
+                <div class="pt-4">
+                    <a href="#" class="block w-full text-center px-4 py-3 bg-civitas-blue text-white font-bold rounded-md hover:bg-blue-900">Zapisz się na studia</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative pt-24 pb-16 md:pt-36 md:pb-28 flex items-center justify-center min-h-[85vh] bg-civitas-blue overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Warsaw Campus" class="w-full h-full object-cover opacity-20 mix-blend-overlay">
+            <div class="absolute inset-0 bg-gradient-to-b from-civitas-blue/80 via-civitas-blue/95 to-civitas-dark"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="inline-block py-1.5 px-4 rounded-full bg-civitas-gold/10 text-civitas-gold border border-civitas-gold/30 text-sm font-bold mb-8 backdrop-blur-sm tracking-wider uppercase animate-fade-in-up">
+                Rekrutacja 2025/2026 Otwarta
+            </span>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight tracking-tight">
+                Studiuj w samym <br class="hidden md:block"> <span class="text-civitas-gold">sercu Warszawy</span>
+            </h1>
+            <p class="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-gray-300 mb-10 leading-relaxed font-light">
+                Dołącz do społeczności Collegium Civitas w Pałacu Kultury i Nauki. Praktyczna wiedza, międzynarodowe środowisko i prestiżowy dyplom.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-5">
+                <a href="#kierunki" class="px-8 py-4 bg-civitas-gold text-civitas-blue rounded-md font-bold text-lg hover:bg-yellow-500 transition transform hover:-translate-y-1 shadow-xl shadow-yellow-500/20">
+                    Znajdź swój kierunek
+                </a>
+                <a href="#" class="px-8 py-4 bg-transparent border-2 border-gray-400 text-white rounded-md font-bold text-lg hover:border-white hover:bg-white/5 transition">
+                    Wirtualny Spacer
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-20 bg-white relative z-20 -mt-10 rounded-t-[2.5rem] mx-0 md:mx-4 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                <div class="p-8 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-xl transition duration-300 group border border-gray-100">
+                    <div class="w-16 h-16 mx-auto bg-blue-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-civitas-blue transition duration-300">
+                        <i class="fas fa-award text-3xl text-civitas-blue group-hover:text-civitas-gold transition duration-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Top Rankingi</h3>
+                    <p class="text-gray-600 leading-relaxed">Czołowe miejsca w rankingu "Perspektywy" wśród uczelni niepublicznych.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-xl transition duration-300 group border border-gray-100">
+                    <div class="w-16 h-16 mx-auto bg-blue-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-civitas-blue transition duration-300">
+                        <i class="fas fa-users text-3xl text-civitas-blue group-hover:text-civitas-gold transition duration-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Wielokulturowość</h3>
+                    <p class="text-gray-600 leading-relaxed">Studenci z ponad 60 krajów świata. Studia po polsku i angielsku.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-xl transition duration-300 group border border-gray-100">
+                    <div class="w-16 h-16 mx-auto bg-blue-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-civitas-blue transition duration-300">
+                        <i class="fas fa-handshake text-3xl text-civitas-blue group-hover:text-civitas-gold transition duration-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Kariera</h3>
+                    <p class="text-gray-600 leading-relaxed">Współpraca z biznesem, staże w instytucjach międzynarodowych i dyplomacji.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kierunki" class="py-24 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-civitas-blue mb-4">Wybierz swoją ścieżkę</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">Oferujemy studia I i II stopnia oraz podyplomowe dopasowane do rynku pracy.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition duration-300 group flex flex-col">
+                    <div class="h-52 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Zarządzanie" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
+                        <div class="absolute top-4 left-4 bg-civitas-gold text-civitas-blue px-3 py-1 rounded text-xs font-bold uppercase">Popularne</div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-civitas-blue mb-2">Zarządzanie</h3>
+                        <p class="text-gray-600 mb-4 text-sm line-clamp-3">Specjalizacje z marketingu, zarządzania projektami i HR. Zostań liderem przyszłości.</p>
+                        <div class="mt-auto pt-4 border-t border-gray-100">
+                            <a href="#" class="text-civitas-blue font-bold text-sm hover:text-civitas-gold transition flex items-center">
+                                Zobacz program <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition duration-300 group flex flex-col">
+                    <div class="h-52 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Stosunki" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-civitas-blue mb-2">Stosunki Międzynarodowe</h3>
+                        <p class="text-gray-600 mb-4 text-sm line-clamp-3">Zrozum światową politykę, dyplomację i bezpieczeństwo globalne. Studia także po angielsku.</p>
+                        <div class="mt-auto pt-4 border-t border-gray-100">
+                            <a href="#" class="text-civitas-blue font-bold text-sm hover:text-civitas-gold transition flex items-center">
+                                Zobacz program <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition duration-300 group flex flex-col">
+                    <div class="h-52 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Media" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-civitas-blue mb-2">Dziennikarstwo i Nowe Media</h3>
+                        <p class="text-gray-600 mb-4 text-sm line-clamp-3">Social media, PR, warsztat dziennikarski. Praktyczne zajęcia w nowoczesnym studiu.</p>
+                        <div class="mt-auto pt-4 border-t border-gray-100">
+                            <a href="#" class="text-civitas-blue font-bold text-sm hover:text-civitas-gold transition flex items-center">
+                                Zobacz program <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="border-2 border-civitas-blue text-civitas-blue px-8 py-3 rounded-md font-bold hover:bg-civitas-blue hover:text-white transition duration-300">
+                    Zobacz wszystkie 24 kierunki
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-civitas-blue py-20 relative overflow-hidden">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-blue-500 opacity-10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-civitas-gold opacity-10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-3xl font-bold text-white mb-4">Zostaw kontakt, a odezwiemy się!</h2>
+            <p class="text-blue-100 mb-8 text-lg">Chcesz dowiedzieć się więcej o rekrutacji? Zapisz się na newsletter.</p>
+            
+            <form class="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
+                <input type="email" placeholder="Twój adres email" class="px-5 py-4 rounded-md flex-grow focus:outline-none focus:ring-2 focus:ring-civitas-gold bg-white/10 text-white border border-white/20 placeholder-gray-300">
+                <button type="button" class="px-8 py-4 bg-civitas-gold text-civitas-blue font-bold rounded-md hover:bg-yellow-500 transition shadow-lg">
+                    Zapisz się
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-civitas-dark border-t border-blue-900/30 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-9 h-9 rounded bg-blue-900/50 flex items-center justify-center text-white hover:bg-civitas-gold hover:text-civitas-blue transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-9 h-9 rounded bg-blue-900/50 flex items-center justify-center text-white hover:bg-civitas-gold hover:text-civitas-blue transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-9 h-9 rounded bg-blue-900/50 flex items-center justify-center text-white hover:bg-civitas-gold hover:text-civitas-blue transition"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-6 text-lg border-b border-blue-800 pb-2 inline-block">Na Skróty</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-civitas-gold transition flex items-center"><i class="fas fa-angle-right mr-2 text-xs"></i> Rekrutacja</a></li>
+                        <li><a href="#" class="hover:text-civitas-gold transition flex items-center"><i class="fas fa-angle-right mr-2 text-xs"></i> Biuro Karier</a></li>
+                        <li><a href="#" class="hover:text-civitas-gold transition flex items-center"><i class="fas fa-angle-right mr-2 text-xs"></i> Erasmus+</a></li>
+                        <li><a href="#" class="hover:text-civitas-gold transition flex items-center"><i class="fas fa-angle-right mr-2 text-xs"></i> Biblioteka</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-6 text-lg border-b border-blue-800 pb-2 inline-block">Obszary Studiów</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-civitas-gold transition">Zarządzanie i Marketing</a></li>
+                        <li><a href="#" class="hover:text-civitas-gold transition">Socjologia</a></li>
+                        <li><a href="#" class="hover:text-civitas-gold transition">Stosunki Międzynarodowe</a></li>
+                        <li><a href="#" class="hover:text-civitas-gold transition">Nowe Media</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-6 text-lg border-b border-blue-800 pb-2 inline-block">Kontakt</h3>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-civitas-gold"></i>
+                            <span>Pałac Kultury i Nauki, XII piętro<br>Plac Defilad 1, 00-901 Warszawa</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-phone text-civitas-gold"></i>
+                            <span>+48 22 656 71 87</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-civitas-gold"></i>
+                            <span>rekrutacja@civitas.edu.pl</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-blue-900/40 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; 2025 Collegium Civitas. Wszelkie prawa zastrzeżone.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition">Polityka Prywatności</a>
+                    <a href="#" class="hover:text-white transition">BIP</a>
+                    <a href="#" class="hover:text-white transition">Deklaracja Dostępności</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Zamknij menu po kliknięciu w link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
