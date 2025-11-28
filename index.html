@@ -3,308 +3,629 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collegium Civitas - Przyszłość Zaczyna Się Tutaj</title>
+    <title>Uniwersytet Civitas - Twoja Przyszłość Zaczyna Się Tutaj</title>
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        'civitas-blue': '#22284F',  // Основний колір (Navy)
-                        'civitas-dark': '#151830',  // Темніший відтінок для футера
-                        'civitas-gold': '#C6A84B',  // Золотий акцент (трохи спокійніший)
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        html {
-            scroll-behavior: smooth;
+        /* --- 1. VARIABLES & RESET --- */
+        :root {
+            --primary-blue: #22284f;
+            --accent-red: #cf2e2e;
+            --light-blue: #009fe3;
+            --text-dark: #1a1a1a;
+            --text-grey: #4a4a4a;
+            --bg-light: #f4f6f8;
+            --white: #ffffff;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.08);
+            --shadow-hover: 0 20px 50px -10px rgba(0,0,0,0.15);
+            --container-width: 1240px;
+            --header-height: 90px;
         }
-        /* Ефект скла для навігації */
-        .glass-nav {
-            background: #22284F;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--white);
+            overflow-x: hidden;
+            padding-top: var(--header-height);
         }
-        /* Клас для інверсії кольору логотипа на темному фоні (робить його білим) */
-        .logo-white-filter {
-            filter: brightness(0) invert(1);
-            opacity: 0.9;
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* --- 2. UTILITY CLASSES --- */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            font-weight: 600;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary { 
+            background: var(--accent-red); 
+            color: white; 
+            box-shadow: 0 4px 15px rgba(207, 46, 46, 0.3);
+        }
+        .btn-primary:hover { 
+            background: #b02222; 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 20px rgba(207, 46, 46, 0.4);
+        }
+        
+        .btn-outline { 
+            border: 2px solid var(--white); 
+            color: var(--white); 
+            background: transparent;
+        }
+        .btn-outline:hover { 
+            background: var(--white); 
+            color: var(--primary-blue); 
+        }
+
+        /* --- 3. HEADER --- */
+        .top-bar {
+            background: #f8f9fa;
+            padding: 10px 0;
+            font-size: 0.85rem;
+            border-bottom: 1px solid #eaeaea;
+            display: none;
+        }
+        @media (min-width: 992px) { .top-bar { display: block; } }
+
+        .top-bar .container { display: flex; justify-content: flex-end; align-items: center; gap: 20px; }
+        .top-bar a { color: var(--text-grey); font-weight: 500; }
+        .top-bar a:hover { color: var(--accent-red); }
+
+        header {
+            background: var(--white);
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            height: var(--header-height);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo img { height: 65px; width: auto; transition: var(--transition); }
+
+        .main-nav ul { display: flex; gap: 32px; }
+        .main-nav a { 
+            font-weight: 600; 
+            color: var(--primary-blue); 
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .main-nav a:hover { color: var(--accent-red); }
+
+        .header-actions { display: flex; gap: 12px; align-items: center; }
+
+        .mobile-toggle { 
+            display: none; 
+            cursor: pointer; 
+            z-index: 1001;
+        }
+        .hamburger-box {
+            width: 30px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .hamburger-inner {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-blue);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+        .mobile-toggle.active .hamburger-inner:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
+        .mobile-toggle.active .hamburger-inner:nth-child(2) { opacity: 0; }
+        .mobile-toggle.active .hamburger-inner:nth-child(3) { transform: translateY(-10.5px) rotate(-45deg); }
+
+        /* --- 4. HERO SECTION --- */
+        .hero {
+            position: relative;
+            background: linear-gradient(90deg, rgba(34, 40, 79, 0.9) 0%, rgba(34, 40, 79, 0.6) 100%), 
+                        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1920&auto=format&fit=crop') no-repeat center center/cover;
+            height: 85vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            color: var(--white);
+        }
+
+        .hero-content { 
+            max-width: 700px; 
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-badge {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(5px);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+            display: inline-block;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .hero h1 { 
+            font-size: 3.8rem; 
+            font-weight: 800; 
+            line-height: 1.15; 
+            margin-bottom: 24px; 
+        }
+        
+        .hero p { 
+            font-size: 1.25rem; 
+            margin-bottom: 40px; 
+            color: rgba(255,255,255,0.9);
+            font-weight: 300;
+        }
+
+        .hero-cta-group { display: flex; gap: 16px; flex-wrap: wrap; }
+
+        /* --- 5. SOCIAL PROOF --- */
+        .stats-bar {
+            background: var(--white);
+            padding: 40px 0;
+            border-bottom: 1px solid #eee;
+            margin-top: -5px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+        .stat-item h3 { font-size: 2.5rem; color: var(--accent-red); font-weight: 800; margin-bottom: 5px; }
+        .stat-item p { font-size: 0.9rem; color: var(--text-grey); font-weight: 600; text-transform: uppercase; }
+
+        /* --- 6. STUDY FINDER --- */
+        .finder-section { padding: 80px 0; background: var(--bg-light); }
+        .section-header { text-align: center; margin-bottom: 50px; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .section-header h2 { font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 15px; }
+        .section-header p { color: var(--text-grey); font-size: 1.1rem; }
+
+        .finder-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .finder-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+        }
+
+        .finder-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(207, 46, 46, 0.1);
+        }
+
+        .finder-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--bg-light);
+            transition: var(--transition);
+        }
+        .finder-card:hover::before { background: var(--accent-red); }
+
+        .card-icon { 
+            font-size: 2.5rem; 
+            margin-bottom: 20px; 
+            display: block; 
+        }
+        .finder-card h3 { font-size: 1.4rem; color: var(--primary-blue); margin-bottom: 10px; }
+        .finder-card p { color: var(--text-grey); font-size: 0.95rem; margin-bottom: 20px; }
+        .card-link { color: var(--accent-red); font-weight: 600; display: inline-flex; align-items: center; }
+        .card-link::after { content: '→'; margin-left: 5px; transition: 0.2s; }
+        .finder-card:hover .card-link::after { margin-left: 10px; }
+
+        /* --- 7. LEAD MAGNET --- */
+        .magnet-section {
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--primary-blue) 100%);
+            color: var(--white);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .magnet-section::after {
+            content: '';
+            position: absolute;
+            top: -50%; right: -10%;
+            width: 500px; height: 500px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+        .magnet-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+        .magnet-content { flex: 1; z-index: 1; }
+        .magnet-content h2 { font-size: 2.5rem; margin-bottom: 15px; }
+        .magnet-content p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px; max-width: 90%; }
+        .magnet-form {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            flex: 0 0 400px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .magnet-form h3 { color: var(--primary-blue); font-size: 1.2rem; margin-bottom: 20px; text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        .form-input { 
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; 
+        }
+        .btn-full { width: 100%; }
+
+        /* --- 8. FOOTER --- */
+        footer {
+            background: var(--primary-blue);
+            color: rgba(255,255,255,0.6);
+            padding-top: 80px;
+            font-size: 0.9rem;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .footer-logo img { height: 40px; margin-bottom: 20px; opacity: 0.8; filter: brightness(0) invert(1); }
+        .footer-desc { max-width: 300px; margin-bottom: 20px; }
+        .footer-col h4 { color: var(--white); font-size: 1.1rem; margin-bottom: 25px; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col a:hover { color: var(--white); text-decoration: underline; }
+        .footer-bottom { padding: 30px 0; text-align: center; }
+
+        /* --- RESPONSIVE & MOBILE NAV FIXES --- */
+        @media (max-width: 1111px){
+            .main-nav a{
+                font-size: 0.8rem
+            }
+        }
+        @media (max-width: 992px) {
+            .logo img { height: 45px; }
+            .hero h1 { font-size: 3rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .magnet-container { flex-direction: column; text-align: center; }
+            .magnet-content p { margin: 0 auto 30px; }
+            
+            
+        }
+
+        @media (max-width: 959px){
+            .mobile-toggle { display: block; }
+
+            .main-nav { 
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: #fff;
+                
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease-in-out;
+                z-index: 999;
+                overflow-y: auto;
+            }
+            
+            .main-nav.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .main-nav ul {
+                flex-direction: column;
+                padding: calc(var(--header-height) + 30px) 20px 30px 20px;
+                gap: 0;
+            }
+            .main-nav ul li {
+                border-bottom: 1px solid #f5f5f5;
+            }
+            .main-nav a {
+                display: block;
+                padding: 15px 0;
+                font-size: 1.2rem;
+            }
+
+            .header-actions .btn-primary {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            :root { --header-height: 70px; }
+            .hero { height: auto; padding: 60px 0; }
+            .hero h1 { font-size: 2.2rem; }
+            .finder-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .hero-cta-group { flex-direction: column; width: 100%; }
+            .btn { width: 100%; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body class="font-sans text-gray-700 antialiased bg-gray-50 flex flex-col min-h-screen">
+<body>
 
-    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-24 items-center">
-                <a href="#" class="flex-shrink-0 flex items-center cursor-pointer">
-                    <img src="https://www.civitas.edu.pl/wp-content/uploads/2025/04/logo-uc-cc-310x65-pl.gif" alt="Collegium Civitas Logo" class="h-12 md:h-14 w-auto">
+    <div class="top-bar">
+        <div class="container">
+            <a href="https://wu.civitas.edu.pl/" target="_blank">Wirtualna Uczelnia</a>
+            <a href="#">Biblioteka</a>
+            <span style="color:#ddd">|</span>
+            <a href="#" style="color:var(--text-dark)">PL</a>
+            <a href="#">EN</a>
+            <a href="#">UA</a>
+        </div>
+    </div>
+
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="#">
+                    <img src="https://i.postimg.cc/nVwTVGXh/UC.png" alt="Uniwersytet Civitas Logo">
                 </a>
-
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="#" class="text-white hover:text-civitas-gold font-medium transition relative group">
-                        O Uczelni
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-civitas-blue transition-all group-hover:w-full"></span>
-                    </a>
-                    <a href="#kierunki" class="text-white hover:text-civitas-gold font-medium transition relative group">
-                        Kierunki
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-civitas-blue transition-all group-hover:w-full"></span>
-                    </a>
-                    <a href="#studenci" class="text-white hover:text-civitas-gold font-medium transition relative group">
-                        Dla Studenta
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-civitas-blue transition-all group-hover:w-full"></span>
-                    </a>
-                    <a href="#aktualnosci" class="text-white hover:text-civitas-gold font-medium transition relative group">
-                        Aktualności
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-civitas-blue transition-all group-hover:w-full"></span>
-                    </a>
-                    <a href="#" class="bg-blue-900 text-white px-6 py-3 rounded-md font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-900/20 transform hover:-translate-y-0.5">
-                        Rekrutacja
-                    </a>
-                </div>
-
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-civitas-blue focus:outline-none p-2">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
             </div>
-        </div>
 
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full">
-            <div class="px-4 pt-4 pb-6 space-y-2">
-                <a href="#" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-civitas-blue">O Uczelni</a>
-                <a href="#kierunki" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-civitas-blue">Kierunki</a>
-                <a href="#studenci" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-civitas-blue">Dla Studenta</a>
-                <a href="#aktualnosci" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-civitas-blue">Aktualności</a>
-                <div class="pt-4">
-                    <a href="#" class="block w-full text-center px-4 py-3 bg-civitas-blue text-white font-bold rounded-md hover:bg-blue-900">Zapisz się na studia</a>
+            <nav class="main-nav" id="mainNav">
+                <ul>
+                    <li><a href="#">Dla Kandydatów</a></li>
+                    <li><a href="#">Kierunki Studiów</a></li>
+                    <li><a href="#">Studenci</a></li>
+                    <li><a href="#">O Uczelni</a></li>
+                    <li><a href="#">Kontakt</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="#" class="btn btn-primary">Aplikuj Teraz</a>
+                
+                <div class="mobile-toggle" id="mobileToggle">
+                    <div class="hamburger-box">
+                        <span class="hamburger-inner"></span>
+                        <span class="hamburger-inner"></span>
+                        <span class="hamburger-inner"></span>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </nav>
-
-    <header class="relative pt-24 pb-16 md:pt-36 md:pb-28 flex items-center justify-center min-h-[85vh] bg-civitas-blue overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Warsaw Campus" class="w-full h-full object-cover opacity-20 mix-blend-overlay">
-            <div class="absolute inset-0 bg-gradient-to-b from-civitas-blue/80 via-civitas-blue/95 to-civitas-dark"></div>
-        </div>
-
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <span class="inline-block py-1.5 px-4 rounded-full bg-civitas-gold/10 text-civitas-gold border border-civitas-gold/30 text-sm font-bold mb-8 backdrop-blur-sm tracking-wider uppercase animate-fade-in-up">
-                Rekrutacja 2025/2026 Otwarta
-            </span>
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight tracking-tight">
-                Studiuj w samym <br class="hidden md:block"> <span class="text-civitas-gold">sercu Warszawy</span>
-            </h1>
-            <p class="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-gray-300 mb-10 leading-relaxed font-light">
-                Dołącz do społeczności Collegium Civitas w Pałacu Kultury i Nauki. Praktyczna wiedza, międzynarodowe środowisko i prestiżowy dyplom.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-5">
-                <a href="#kierunki" class="px-8 py-4 bg-civitas-gold text-civitas-blue rounded-md font-bold text-lg hover:bg-yellow-500 transition transform hover:-translate-y-1 shadow-xl shadow-yellow-500/20">
-                    Znajdź swój kierunek
-                </a>
-                <a href="#" class="px-8 py-4 bg-transparent border-2 border-gray-400 text-white rounded-md font-bold text-lg hover:border-white hover:bg-white/5 transition">
-                    Wirtualny Spacer
-                </a>
             </div>
         </div>
     </header>
 
-    <section class="py-20 bg-white relative z-20 -mt-10 rounded-t-[2.5rem] mx-0 md:mx-4 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-                <div class="p-8 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-xl transition duration-300 group border border-gray-100">
-                    <div class="w-16 h-16 mx-auto bg-blue-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-civitas-blue transition duration-300">
-                        <i class="fas fa-award text-3xl text-civitas-blue group-hover:text-civitas-gold transition duration-300"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Top Rankingi</h3>
-                    <p class="text-gray-600 leading-relaxed">Czołowe miejsca w rankingu "Perspektywy" wśród uczelni niepublicznych.</p>
-                </div>
-                <div class="p-8 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-xl transition duration-300 group border border-gray-100">
-                    <div class="w-16 h-16 mx-auto bg-blue-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-civitas-blue transition duration-300">
-                        <i class="fas fa-users text-3xl text-civitas-blue group-hover:text-civitas-gold transition duration-300"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Wielokulturowość</h3>
-                    <p class="text-gray-600 leading-relaxed">Studenci z ponad 60 krajów świata. Studia po polsku i angielsku.</p>
-                </div>
-                <div class="p-8 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-xl transition duration-300 group border border-gray-100">
-                    <div class="w-16 h-16 mx-auto bg-blue-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-civitas-blue transition duration-300">
-                        <i class="fas fa-handshake text-3xl text-civitas-blue group-hover:text-civitas-gold transition duration-300"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Kariera</h3>
-                    <p class="text-gray-600 leading-relaxed">Współpraca z biznesem, staże w instytucjach międzynarodowych i dyplomacji.</p>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">Rekrutacja 2025/2026 Otwarta</div>
+                <h1>Twoja kariera <br>zaczyna się w centrum Warszawy.</h1>
+                <p>Dołącz do międzynarodowej społeczności akademickiej w Pałacu Kultury i Nauki. Ucz się od praktyków, zdobywaj realne umiejętności i buduj przyszłość bez granic.</p>
+                
+                <div class="hero-cta-group">
+                    <a href="#" class="btn btn-primary">Znajdź swój kierunek</a>
+                    <a href="#" class="btn btn-outline">Pobierz informator</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="kierunki" class="py-24 bg-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-civitas-blue mb-4">Wybierz swoją ścieżkę</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto text-lg">Oferujemy studia I i II stopnia oraz podyplomowe dopasowane do rynku pracy.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition duration-300 group flex flex-col">
-                    <div class="h-52 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Zarządzanie" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
-                        <div class="absolute top-4 left-4 bg-civitas-gold text-civitas-blue px-3 py-1 rounded text-xs font-bold uppercase">Popularne</div>
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold text-civitas-blue mb-2">Zarządzanie</h3>
-                        <p class="text-gray-600 mb-4 text-sm line-clamp-3">Specjalizacje z marketingu, zarządzania projektami i HR. Zostań liderem przyszłości.</p>
-                        <div class="mt-auto pt-4 border-t border-gray-100">
-                            <a href="#" class="text-civitas-blue font-bold text-sm hover:text-civitas-gold transition flex items-center">
-                                Zobacz program <i class="fas fa-arrow-right ml-2"></i>
-                            </a>
-                        </div>
-                    </div>
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>25+</h3>
+                    <p>Lat Tradycji</p>
                 </div>
-
-                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition duration-300 group flex flex-col">
-                    <div class="h-52 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Stosunki" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold text-civitas-blue mb-2">Stosunki Międzynarodowe</h3>
-                        <p class="text-gray-600 mb-4 text-sm line-clamp-3">Zrozum światową politykę, dyplomację i bezpieczeństwo globalne. Studia także po angielsku.</p>
-                        <div class="mt-auto pt-4 border-t border-gray-100">
-                            <a href="#" class="text-civitas-blue font-bold text-sm hover:text-civitas-gold transition flex items-center">
-                                Zobacz program <i class="fas fa-arrow-right ml-2"></i>
-                            </a>
-                        </div>
-                    </div>
+                <div class="stat-item">
+                    <h3>70+</h3>
+                    <p>Krajów Studentów</p>
                 </div>
-
-                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition duration-300 group flex flex-col">
-                    <div class="h-52 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Media" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold text-civitas-blue mb-2">Dziennikarstwo i Nowe Media</h3>
-                        <p class="text-gray-600 mb-4 text-sm line-clamp-3">Social media, PR, warsztat dziennikarski. Praktyczne zajęcia w nowoczesnym studiu.</p>
-                        <div class="mt-auto pt-4 border-t border-gray-100">
-                            <a href="#" class="text-civitas-blue font-bold text-sm hover:text-civitas-gold transition flex items-center">
-                                Zobacz program <i class="fas fa-arrow-right ml-2"></i>
-                            </a>
-                        </div>
-                    </div>
+                <div class="stat-item">
+                    <h3>Top 10</h3>
+                    <p>Uczelni Niepublicznych</p>
                 </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <button class="border-2 border-civitas-blue text-civitas-blue px-8 py-3 rounded-md font-bold hover:bg-civitas-blue hover:text-white transition duration-300">
-                    Zobacz wszystkie 24 kierunki
-                </button>
+                <div class="stat-item">
+                    <h3>99%</h3>
+                    <p>Praktyczne Podejście</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="bg-civitas-blue py-20 relative overflow-hidden">
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-blue-500 opacity-10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-civitas-gold opacity-10 rounded-full blur-3xl"></div>
+    <section class="finder-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Wybierz swoją ścieżkę edukacji</h2>
+                <p>Niezależnie od tego, czy dopiero zaczynasz, czy chcesz rozwinąć skrzydła – mamy program dopasowany do Twoich ambicji.</p>
+            </div>
 
-        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
-            <h2 class="text-3xl font-bold text-white mb-4">Zostaw kontakt, a odezwiemy się!</h2>
-            <p class="text-blue-100 mb-8 text-lg">Chcesz dowiedzieć się więcej o rekrutacji? Zapisz się na newsletter.</p>
-            
-            <form class="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
-                <input type="email" placeholder="Twój adres email" class="px-5 py-4 rounded-md flex-grow focus:outline-none focus:ring-2 focus:ring-civitas-gold bg-white/10 text-white border border-white/20 placeholder-gray-300">
-                <button type="button" class="px-8 py-4 bg-civitas-gold text-civitas-blue font-bold rounded-md hover:bg-yellow-500 transition shadow-lg">
-                    Zapisz się
-                </button>
-            </form>
+            <div class="finder-grid">
+                <div class="finder-card">
+                    <span class="card-icon">🎓</span>
+                    <h3>Studia I Stopnia</h3>
+                    <p>Licencjackie. Zdobądź solidne fundamenty i pierwszy zawód w międzynarodowym środowisku.</p>
+                    <a href="#" class="card-link">Sprawdź kierunki</a>
+                </div>
+
+                <div class="finder-card">
+                    <span class="card-icon">🚀</span>
+                    <h3>Studia II Stopnia</h3>
+                    <p>Magisterskie. Pogłęb wiedzę, zdobądź specjalizację i przygotuj się do ról liderskich.</p>
+                    <a href="#" class="card-link">Sprawdź kierunki</a>
+                </div>
+
+                <div class="finder-card">
+                    <span class="card-icon">🌍</span>
+                    <h3>Studia po Angielsku</h3>
+                    <p>Otwórz się na świat. Studiuj w języku angielskim i zdobądź dyplom uznawany globalnie.</p>
+                    <a href="#" class="card-link">English Programs</a>
+                </div>
+
+                <div class="finder-card">
+                    <span class="card-icon">💼</span>
+                    <h3>Studia Podyplomowe & MBA</h3>
+                    <p>Dla profesjonalistów. Zaktualizuj kompetencje i przyspiesz swoją karierę zawodową.</p>
+                    <a href="#" class="card-link">Oferta dla ekspertów</a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer class="bg-civitas-dark border-t border-blue-900/30 pt-16 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+    <section class="magnet-section">
+        <div class="container">
+            <div class="magnet-container">
+                <div class="magnet-content">
+                    <h2>Nie wiesz, jaki kierunek wybrać?</h2>
+                    <p>Wybór studiów to trudna decyzja. Przygotowaliśmy dla Ciebie <strong>darmowy poradnik kariery</strong> oraz test kompetencji, który pomoże Ci odkryć Twoje mocne strony.</p>
+                    <ul style="list-style: none; margin-bottom: 30px;">
+                        <li style="margin-bottom: 10px;">✅ Poznaj najbardziej przyszłościowe zawody</li>
+                        <li style="margin-bottom: 10px;">✅ Sprawdź opinie absolwentów</li>
+                        <li style="margin-bottom: 10px;">✅ Otrzymaj zniżkę na wpisowe</li>
+                    </ul>
+                </div>
+                
+                <div class="magnet-form">
+                    <h3>Odbierz Poradnik Kandydata 2025</h3>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="Twoje imię">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-input" placeholder="Twój e-mail">
+                        </div>
+                        <button type="button" class="btn btn-primary btn-full">Wyślij mi poradnik</button>
+                        <p style="font-size: 0.75rem; color: #888; margin-top: 10px; text-align: center;">
+                            Szanujemy Twoją prywatność. Żadnego spamu.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
                 <div>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-9 h-9 rounded bg-blue-900/50 flex items-center justify-center text-white hover:bg-civitas-gold hover:text-civitas-blue transition"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="w-9 h-9 rounded bg-blue-900/50 flex items-center justify-center text-white hover:bg-civitas-gold hover:text-civitas-blue transition"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="w-9 h-9 rounded bg-blue-900/50 flex items-center justify-center text-white hover:bg-civitas-gold hover:text-civitas-blue transition"><i class="fab fa-linkedin-in"></i></a>
+                    <div class="footer-logo">
+                        <img src="https://i.postimg.cc/nVwTVGXh/UC.png" alt="Logo Footer">
                     </div>
+                    <p class="footer-desc">Uniwersytet Civitas to nowoczesna uczelnia niepubliczna w samym sercu Warszawy, w Pałacu Kultury i Nauki.</p>
                 </div>
-
-                <div>
-                    <h3 class="text-white font-bold mb-6 text-lg border-b border-blue-800 pb-2 inline-block">Na Skróty</h3>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-civitas-gold transition flex items-center"><i class="fas fa-angle-right mr-2 text-xs"></i> Rekrutacja</a></li>
-                        <li><a href="#" class="hover:text-civitas-gold transition flex items-center"><i class="fas fa-angle-right mr-2 text-xs"></i> Biuro Karier</a></li>
-                        <li><a href="#" class="hover:text-civitas-gold transition flex items-center"><i class="fas fa-angle-right mr-2 text-xs"></i> Erasmus+</a></li>
-                        <li><a href="#" class="hover:text-civitas-gold transition flex items-center"><i class="fas fa-angle-right mr-2 text-xs"></i> Biblioteka</a></li>
+                
+                <div class="footer-col">
+                    <h4>Na skróty</h4>
+                    <ul>
+                        <li><a href="#">Dla kandydatów</a></li>
+                        <li><a href="#">Dla studentów</a></li>
+                        <li><a href="#">Biblioteka</a></li>
+                        <li><a href="#">BIP</a></li>
                     </ul>
                 </div>
 
-                <div>
-                    <h3 class="text-white font-bold mb-6 text-lg border-b border-blue-800 pb-2 inline-block">Obszary Studiów</h3>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-civitas-gold transition">Zarządzanie i Marketing</a></li>
-                        <li><a href="#" class="hover:text-civitas-gold transition">Socjologia</a></li>
-                        <li><a href="#" class="hover:text-civitas-gold transition">Stosunki Międzynarodowe</a></li>
-                        <li><a href="#" class="hover:text-civitas-gold transition">Nowe Media</a></li>
+                <div class="footer-col">
+                    <h4>Kierunki</h4>
+                    <ul>
+                        <li><a href="#">Zarządzanie</a></li>
+                        <li><a href="#">Stosunki Międzynarodowe</a></li>
+                        <li><a href="#">Socjologia</a></li>
+                        <li><a href="#">Nowe Media</a></li>
                     </ul>
                 </div>
 
-                <div>
-                    <h3 class="text-white font-bold mb-6 text-lg border-b border-blue-800 pb-2 inline-block">Kontakt</h3>
-                    <ul class="space-y-4 text-sm text-gray-400">
-                        <li class="flex items-start gap-3">
-                            <i class="fas fa-map-marker-alt mt-1 text-civitas-gold"></i>
-                            <span>Pałac Kultury i Nauki, XII piętro<br>Plac Defilad 1, 00-901 Warszawa</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <i class="fas fa-phone text-civitas-gold"></i>
-                            <span>+48 22 656 71 87</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <i class="fas fa-envelope text-civitas-gold"></i>
-                            <span>rekrutacja@civitas.edu.pl</span>
-                        </li>
+                <div class="footer-col">
+                    <h4>Kontakt</h4>
+                    <ul>
+                        <li>Pałac Kultury i Nauki, XII p.</li>
+                        <li>plac Defilad 1, Warszawa</li>
+                        <li><a href="mailto:info@civitas.edu.pl">info@civitas.edu.pl</a></li>
+                        <li><a href="tel:+48226567187">+48 22 656 71 87</a></li>
                     </ul>
                 </div>
             </div>
-
-            <div class="border-t border-blue-900/40 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
-                <p>&copy; 2025 Collegium Civitas. Wszelkie prawa zastrzeżone.</p>
-                <div class="flex gap-6 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-white transition">Polityka Prywatności</a>
-                    <a href="#" class="hover:text-white transition">BIP</a>
-                    <a href="#" class="hover:text-white transition">Deklaracja Dostępności</a>
-                </div>
+            <div class="footer-bottom">
+                &copy; 2025 Uniwersytet Civitas. Wszelkie prawa zastrzeżone. Polityka Prywatności.
             </div>
         </div>
     </footer>
 
     <script>
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mainNav = document.getElementById('mainNav');
+        const body = document.body;
 
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+        mobileToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mainNav.classList.toggle('active');
+            
+            if (mainNav.classList.contains('active')) {
+                body.style.overflow = 'hidden';
+            } else {
+                body.style.overflow = 'auto';
+            }
         });
 
-        // Zamknij menu po kliknięciu w link
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
+        document.querySelectorAll('.main-nav a').forEach(link => {
             link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
+                mobileToggle.classList.remove('active');
+                mainNav.classList.remove('active');
+                body.style.overflow = 'auto';
             });
         });
     </script>
